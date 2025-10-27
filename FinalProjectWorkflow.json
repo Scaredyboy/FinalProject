@@ -3,22 +3,14 @@
   "nodes": [
     {
       "parameters": {
-        "resource": "speech",
-        "operation": "speechToText",
-        "additionalOptions": {},
-        "requestOptions": {}
-      },
-      "type": "@elevenlabs/n8n-nodes-elevenlabs.elevenLabs",
-      "typeVersion": 1,
-      "position": [
-        272,
-        -64
-      ],
-      "id": "12637d3a-c7db-4489-a825-66cf8035ebdf",
-      "name": "Transcribe audio or video"
-    },
-    {
-      "parameters": {
+        "hasOutputParser": true,
+        "messages": {
+          "messageValues": [
+            {
+              "message": "Youre a chatbot. dont print out what youre thinking"
+            }
+          ]
+        },
         "batching": {}
       },
       "type": "@n8n/n8n-nodes-langchain.chainLlm",
@@ -32,13 +24,14 @@
     },
     {
       "parameters": {
+        "model": "qwen3:0.6b",
         "options": {}
       },
       "type": "@n8n/n8n-nodes-langchain.lmChatOllama",
       "typeVersion": 1,
       "position": [
-        -96,
-        160
+        -128,
+        128
       ],
       "id": "9405b3d9-0660-42cb-a0b4-37160c557c97",
       "name": "Ollama Chat Model",
@@ -62,6 +55,34 @@
       "id": "50b47020-365b-433b-ab6b-93fa917ab374",
       "name": "When chat message received",
       "webhookId": "af954bee-ce87-4b9e-8616-5b56c4f176d2"
+    },
+    {
+      "parameters": {
+        "resource": "speech",
+        "voice": {
+          "__rl": true,
+          "value": "UgBBYS2sOqTuMpoF3BR0",
+          "mode": "list",
+          "cachedResultName": "Mark - Natural Conversations"
+        },
+        "text": "={{ $json['text'] }}",
+        "additionalOptions": {},
+        "requestOptions": {}
+      },
+      "type": "@elevenlabs/n8n-nodes-elevenlabs.elevenLabs",
+      "typeVersion": 1,
+      "position": [
+        352,
+        -96
+      ],
+      "id": "4dfc720a-1c05-429d-9632-9f21ca6eed1e",
+      "name": "Convert text to speech",
+      "credentials": {
+        "elevenLabsApi": {
+          "id": "IubnOrQ9o2q87TXe",
+          "name": "ElevenLabs account"
+        }
+      }
     }
   ],
   "pinData": {},
@@ -81,7 +102,7 @@
       "main": [
         [
           {
-            "node": "Transcribe audio or video",
+            "node": "Convert text to speech",
             "type": "main",
             "index": 0
           }
@@ -104,7 +125,7 @@
   "settings": {
     "executionOrder": "v1"
   },
-  "versionId": "6a6b08fd-43e5-4abb-bde0-fdebd50e908e",
+  "versionId": "0a8150dc-1f77-43f0-b249-07182ea5a885",
   "meta": {
     "templateCredsSetupCompleted": true,
     "instanceId": "2ec7cc14874114a3c8d027fe1eaaee0035e103392719b11f385ea0e979bc1eee"
