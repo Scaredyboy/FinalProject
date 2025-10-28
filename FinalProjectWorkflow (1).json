@@ -1,0 +1,139 @@
+{
+  "name": "FinalProjectWorkflow",
+  "nodes": [
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.3,
+      "position": [
+        -320,
+        -112
+      ],
+      "id": "50b47020-365b-433b-ab6b-93fa917ab374",
+      "name": "When chat message received",
+      "webhookId": "af954bee-ce87-4b9e-8616-5b56c4f176d2"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "mode": "list",
+          "value": "gpt-4.1-mini"
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        -208,
+        112
+      ],
+      "id": "4f663e56-7f85-4618-a9a6-881baf063f03",
+      "name": "OpenAI Chat Model",
+      "credentials": {
+        "openAiApi": {
+          "id": "cK7zzDFAVDux5htb",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "speech",
+        "voice": {
+          "__rl": true,
+          "value": "UgBBYS2sOqTuMpoF3BR0",
+          "mode": "list",
+          "cachedResultName": "Mark - Natural Conversations"
+        },
+        "text": "={{ $json['text'] }}",
+        "additionalOptions": {},
+        "requestOptions": {}
+      },
+      "type": "@elevenlabs/n8n-nodes-elevenlabs.elevenLabs",
+      "typeVersion": 1,
+      "position": [
+        352,
+        -96
+      ],
+      "id": "4dfc720a-1c05-429d-9632-9f21ca6eed1e",
+      "name": "Convert text to speech",
+      "credentials": {
+        "elevenLabsApi": {
+          "id": "IubnOrQ9o2q87TXe",
+          "name": "ElevenLabs account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "hasOutputParser": true,
+        "messages": {
+          "messageValues": [
+            {
+              "message": "You are a chatbot that writes podcast scripts for a single-person show. The user will provide a topic or idea, and you will respond only with the podcast script itself, written in a natural, engaging, spoken style suitable for one host. Do not include any notes, explanations, or labels — just the podcast text exactly as it would be spoken on air. Keep it down to one paragragh"
+            }
+          ]
+        },
+        "batching": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.7,
+      "position": [
+        -96,
+        -96
+      ],
+      "id": "bb08e7fb-6c11-455e-bc06-d11129d35575",
+      "name": "Basic LLM Chain"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When chat message received": {
+      "main": [
+        [
+          {
+            "node": "Basic LLM Chain",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Basic LLM Chain",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Basic LLM Chain": {
+      "main": [
+        [
+          {
+            "node": "Convert text to speech",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "c60450c5-9c01-43ba-a613-3c30d5e210ea",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "2ec7cc14874114a3c8d027fe1eaaee0035e103392719b11f385ea0e979bc1eee"
+  },
+  "id": "5PjBEtT7BFGc5MNP",
+  "tags": []
+}
