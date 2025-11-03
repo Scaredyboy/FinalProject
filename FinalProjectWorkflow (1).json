@@ -27,8 +27,8 @@
       "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
       "typeVersion": 1.2,
       "position": [
-        -208,
-        112
+        -112,
+        160
       ],
       "id": "4f663e56-7f85-4618-a9a6-881baf063f03",
       "name": "OpenAI Chat Model",
@@ -87,29 +87,6 @@
       ],
       "id": "bb08e7fb-6c11-455e-bc06-d11129d35575",
       "name": "Basic LLM Chain"
-    },
-    {
-      "parameters": {
-        "resource": "video",
-        "operation": "upload",
-        "title": "Mouth Sound",
-        "regionCode": "US",
-        "options": {}
-      },
-      "type": "n8n-nodes-base.youTube",
-      "typeVersion": 1,
-      "position": [
-        560,
-        -96
-      ],
-      "id": "93de7f8a-d087-4f8e-93eb-cdb97dad7d76",
-      "name": "Upload a video",
-      "credentials": {
-        "youTubeOAuth2Api": {
-          "id": "eaJLAQvXjOi2xrEh",
-          "name": "YouTube account"
-        }
-      }
     }
   ],
   "pinData": {},
@@ -149,13 +126,7 @@
     },
     "Convert text to speech": {
       "main": [
-        [
-          {
-            "node": "Upload a video",
-            "type": "main",
-            "index": 0
-          }
-        ]
+        []
       ]
     }
   },
